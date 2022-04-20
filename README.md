@@ -190,8 +190,19 @@ export default createSchema({
 })
 ```
 
+* now we are going to set `metamask` to testnet network for that click on the metamask icon --> settings --> network --> click on (show test networks) make it `ON`
+* now setup `ThirdWeb` that will allow us to communicate with the blockchain.go to this link : [thirdweb](https://thirdweb.com/dashboard)
+* [faucet](https://faucets.chain.link/rinkeby) go to this link and connect your metamask account to get free etherum. (now we have 0.1 ET)
+* go to the `ThirdWeb` and create a new Contract, and make an NFT token. `metamask will popup for transaction confirmation`
+* start sanity inside `studio` directory by entering command `sanity start` 
+* sanity server will start at [sanity](http://localhost:3333) , log in as github or google, and then register a user.
+
  # steps:
     * create a next js project
     * install sanity cli
     * create a studio directory for sanity
-    * 
+    * add database schema to schema.js
+    * install metamask.io and add that extension to the browser, set it to the testnet network.
+    * setup `thirdWeb` to communicate with the blockchain.
+    * `sanity start` : start sanity inside studio directory [sanity](http://localhost:3333)
+    * register a user in the sanity
