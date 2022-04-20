@@ -206,3 +206,6 @@ export default createSchema({
     * setup `thirdWeb` to communicate with the blockchain.
     * `sanity start` : start sanity inside studio directory [sanity](http://localhost:3333)
     * register a user in the sanity
+
+
+
