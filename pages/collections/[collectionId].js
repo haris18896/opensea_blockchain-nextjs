@@ -44,7 +44,7 @@ function Collection() {
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837')
+    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs')
     return sdk.getNFTModule(collectionId)
   }, [provider])
 
@@ -61,8 +61,8 @@ function Collection() {
   const marketPlaceModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://rinkeby.infura.io/v3/a464b9152d8c466c8a94a514fce8e837')
-    return sdk.getMarketplaceModule('0x93A771F7ce845C33381f677489cF21a5964EDD0b')
+    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs')
+    return sdk.getMarketplaceModule('0x2E0F770000C9ED501bB206026280085A05ac797e')
   }, [provider])
 
   // get all listings in the collection
