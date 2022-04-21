@@ -1,133 +1,82 @@
 # OpenSea - BlockChain Web 3.0 App - with Next.js | Sanity.io | thirdweb 
-install thirdWeb in project `npm install @3rdweb/hooks`
-
-in `pages/_app.tsx` import `import { ThirdwebWeb3Provider } from '@3rdweb/hooks'`
-
-wrap your app with thirdApp provider
-
+now working with collections page
 
 ```js
-//pages/_app.js
-import '../styles/globals.css'
-import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
-
-/**
- * the Chain 4 represent the Rinkeyby network
- * the 'injected' connectoris a web3 connection method used by Metamask
- */
-const supportedChainIds = [4]
-const connectors = {
-  injected: {}
-}
-/**
- * Make sure that your app is wrapped with these contexts.
- * If you're using Next JS, you'll have to replace children with the Component setup
- */
-function MyApp({ Component, pageProps }) {
-  return (
-    <ThirdwebWeb3Provider supportedChainIds={supportedChainIds} connectors={connectors}>
-      <Component {...pageProps} />
-    </ThirdwebWeb3Provider>
-  )
-}
-
-export default MyApp
-
-```
-
-```js
-//pages/index.js
-
-import { useEffect } from 'react'
-import Header from '../components/Header/Header'
-import Hero from '../components/Hero'
+// pages/collection/[collectionId].js
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
-import { client } from '../lib/sanityClient'
-import toast, { Toaster } from 'react-hot-toast'
 
 const style = {
-  wrapper: ``,
-  walletConnectWrapper: `flex flex-col justify-center items-center h-screen w-screen bg-[#3b3d42] `,
-  button: `border border-[#282b2f] bg-[#2081e2] p-[0.8rem] text-xl font-semibold rounded-lg cursor-pointer text-black`,
-  details: `text-lg text-center text=[#282b2f] font-semibold mt-4`
+  bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
+  bannerImage: `w-full object-cover`,
+  infoContainer: `w-screen px-4`,
+  midRow: `w-full flex justify-center text-white`,
+  endRow: `w-full flex justify-end text-white`,
+  profileImg: `w-40 h-40 object-cover rounded-full border-2 border-[#202225] mt-[-4rem]`,
+  socialIconsContainer: `flex text-3xl mb-[-2rem]`,
+  socialIconsWrapper: `w-44`,
+  socialIconsContent: `flex container justify-between text-[1.4rem] border-2 rounded-lg px-2`,
+  socialIcon: `my-2`,
+  divider: `border-r-2`,
+  title: `text-5xl font-bold mb-4`,
+  createdBy: `text-lg mb-4`,
+  statsContainer: `w-[44vw] flex justify-between py-4 border border-[#151b22] rounded-xl mb-4`,
+  collectionStat: `w-1/4`,
+  statValue: `text-3xl font-bold w-full flex items-center justify-center`,
+  ethLogo: `h-6 mr-2`,
+  statName: `text-lg w-full text-center mt-1`,
+  description: `text-[#8a939b] text-xl w-max-1/4 flex-wrap mt-4`
 }
-
-const Home = () => {
-  const { address, connectWallet } = useWeb3()
-
-  const welcomeUser = (userName, toastHandler = toast) => {
-    toastHandler.success(`Welcome back${userName !== 'Unnamed' ? ` ${userName}` : ''}!`, {
-      style: {
-        background: '#04111d',
-        color: '#fff'
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (!address) return // IIFE : Immediately Invoked Function Expression
-    ;(async () => {
-      const userDoc = {
-        _type: 'users',
-        _id: address,
-        userName: 'Unnamed',
-        walletAddress: address
-      }
-
-      const result = await client.createIfNotExists(userDoc)
-
-      welcomeUser(result.userName)
-    })()
-  }, [address])
+function Collection() {
+  const router = useRouter()
+  const { provider } = useWeb3()
+  const { collectionId } = router.query
+  const { collection, setCollection } = useState({})
+  const { nfts, setNfts } = useState([])
+  const [listings, setListings] = useState([])
 
   return (
-    <div className={style.wrapper}>
-      <Toaster position='top-center' reverseOrder={false} />
-      {address ? (
-        <>
-          <Header />
-          <Hero />
-        </>
-      ) : (
-        <div className={style.walletConnectWrapper}>
-          <button className={style.button} onClick={() => connectWallet('injected')}>
-            Connect Wallet
-          </button>
-          <div className={style.details}>
-            You need chrome to be <br />
-            able to run this app.
-          </div>
-        </div>
-      )}
+    <div>
+      <Link href='/'>
+        <h2>{router.query.collectionId}</h2>
+      </Link>
     </div>
   )
 }
 
-export default Home
+export default Collection
 
 ```
 
-we are saving the result of the user to sanity and for that we require sanity client `npm install @sanity/client`
+before continuing we have to set `infura link`, actually go the `alchemy api` [alchemy](https://www.alchemy.com/),
+
+in `Alchemy` => create app (enter Team name, app name. network = `rinkeby`) this is only for the first time you create the app,
+
+* after that when everything is finished and you are logged in then, create App => (enter app name, description, chain, network = `rinkeby`)
+* click on the created app => click on view key => copy (HTTP) key
+* [key](https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs)
+
+* go to the [infura](https://infura.io/dashboard) sign in => go to the project settings => change the endpoint to `rinkeby` [api](https://rinkeby.infura.io/v3/a559755863e64c1581872be99e6d9782),
+
 
 ```js
-// lig/sanityClient.js
-import sanityClient from '@sanity/client'
-
-export const client = sanityClient({
-  projectId: '3n3v373o', // you can find this at sanity.io in the project settings
-  dataset: 'production',
-  apiVersion: '2022-04-21',
-  useCdn: false,
-  // go to the sanity.io => api => CORS origins (add cross origin of website e.g http://localhost:3000, (allow credentials)) => tokens (add api token => Editor access, and name this token)
-  token:
-    'skugaJ8TRhu99x1RSBEyt2yTjC8qjNhZyXVY6759lD9wAqbRhQC2mrYezqMoYXyJ4htHfxPlrmvEZgYLJLzpAe7MzHujqiHp01793R6mguyoHaAcWJr8xeMGUn1PXv0diO4OynF8PTGrvKLfHtfDJtzgmkvikHkfaIjJBWGBojp3KIzJaokz'
-})
-
+const query = `*[_type == 'marketItems' && contractAddress == '${collectionId}'] {
+  {
+    "imageUrl": profileImage.asset->url,
+        "bannerImageUrl": bannerImage.asset->url,
+        volumeTraded,
+        createdBy,
+        contractAddress,
+        "creator": createdBy->userName,
+        title, floorPrice,
+        "allOwners": owners[]->,
+        description
+  }`
 ```
 
  # steps:
-    * install thirdWeb on site `npm install @3rdweb/hooks`
-    * authenticate using Metamask and 3rdweb/hooks
-    * check if the user exist then login, if not then register
-    * `npm install @sanity/client` add sanity client to the lib directory
+    * create a new app on Alchemy
+    *  @3rdweb/sdk
 
