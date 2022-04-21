@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { opensea } from '../../assets/images/opensea.png'
+import opensea from '../../assets/images/opensea.png'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { CgProfile } from 'react-icons/cg'
+import { MdAccountBalanceWallet } from 'react-icons/md'
 
 const style = {
   wrapper: `bg-[#04111d] w-screen px-[1.2rem] py-[0.8rem] flex `,
@@ -18,11 +21,34 @@ const style = {
 function Header() {
   return (
     <div className={style.wrapper}>
-      <Link>
+      <Link href='/'>
         <div className={style.logoContainer}>
-          <Image src={opensea} alt='opensea logo' />
+          <Image src={opensea} height={40} width={40} layout='fixed' alt='logo' />
+          <div className={style.logoText}>OpenSea</div>
         </div>
       </Link>
+
+      <div className={style.searchBar}>
+        <div className={style.searchIcon}>
+          <AiOutlineSearch />
+        </div>
+        <input className={style.searchInput} placeholder='Search items, Collections and accounts' />
+      </div>
+
+      <div className={style.headerItems}>
+        <Link href='/collections/0x5268181d8615ec88318518927667ac6dC40Da3c7'>
+          <div className={style.headerItem}>Collections</div>
+        </Link>
+        <div className={style.headerItem}>Stats</div>
+        <div className={style.headerItem}>Resources</div>
+        <div className={style.headerItem}>Create</div>
+        <div className={style.headerIcon}>
+          <CgProfile />
+        </div>
+        <div className={style.headerIcon}>
+          <MdAccountBalanceWallet />
+        </div>
+      </div>
     </div>
   )
 }
