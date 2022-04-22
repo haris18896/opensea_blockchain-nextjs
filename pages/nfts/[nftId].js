@@ -3,10 +3,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { useWeb3 } from '@3rdweb/hooks'
 import { ThirdwebSDK } from '@3rdweb/sdk'
 import { useRouter } from 'next/router'
-// import NFTImage from '../../components/nft/NFTImage'
-// import GeneralDetails from '../../components/nft/GeneralDetails'
-// import ItemActivity from '../../components/nft/ItemActivity'
-// import Purchase from '../../components/nft/Purchase'
+import NFTImage from '../../components/nft/NFTImage'
+import GeneralDetails from '../../components/nft/GeneralDetails'
+import ItemActivity from '../../components/nft/ItemActivity'
+import MakeOffer from '../../components/nft/Purchase'
 
 const style = {
   wrapper: `flex flex-col items-center container-lg text-[#e5e8eb]`,
@@ -60,22 +60,21 @@ function Nft() {
         <div className={style.container}>
           <div className={style.topContent}>
             <div className={style.nftImgContainer}>
-              {/* <NFTImage selectedNft={selectedNft} /> */}
+              <NFTImage selectedNft={selectedNft} />
             </div>
             <div className={style.detailsContainer}>
-              {/* <GeneralDetails selectedNft={selectedNft} />
-              <Purchase
+              <GeneralDetails selectedNft={selectedNft} />
+              <MakeOffer
                 isListed={router.query.isListed}
                 selectedNft={selectedNft}
                 listings={listings}
                 marketPlaceModule={marketPlaceModule}
-              /> */}
+              />
             </div>
           </div>
           <ItemActivity />
         </div>
       </div>
-    </div>
     </>
   )
 }
