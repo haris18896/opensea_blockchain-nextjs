@@ -22,6 +22,8 @@ function Nft() {
   const [selectedNft, setSelectedNft] = useState()
   const [listings, setListings] = useState([])
 
+  console.log('query in [nftid] : ', router.query)
+
   const nftModule = useMemo(() => {
     if (!provider) return
 

@@ -39,6 +39,8 @@ function Collection() {
   const [nfts, setNfts] = useState([])
   const [listings, setListings] = useState([])
 
+  //
+
   const nftModule = useMemo(() => {
     if (!provider) return
 
@@ -86,6 +88,8 @@ function Collection() {
 
     const collectionData = await sanityClient.fetch(query)
 
+    console.log('collectionData', collectionData, '🔥')
+
     // the query returns 1 object inside of an array
     await setCollection(collectionData[0])
   }
@@ -94,7 +98,7 @@ function Collection() {
     fetchCollectionData()
   }, [collectionId])
 
-  console.log('query', router)
+  console.log('query', router.query)
 
   return (
     <div className='overflow-hidden'>
