@@ -27,7 +27,7 @@ function Nft() {
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs')
+    const sdk = new ThirdwebSDK(provider.getSigner())
     return sdk.getNFTModule('0x5268181d8615ec88318518927667ac6dC40Da3c7')
   }, [provider])
 

@@ -20,7 +20,6 @@ function NFTImage({ selectedNft }) {
         </div>
       </div>
       <div>
-        {console.log(selectedNft, '🎆')}
         <img src={selectedNft?.image} />
       </div>
     </div>

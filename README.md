@@ -79,4 +79,7 @@ const query = `*[_type == 'marketItems' && contractAddress == '${collectionId}']
  # steps:
     * create a new app on Alchemy
     *  @3rdweb/sdk
+    *  at payment time you will encounter an error while buying NFT's for that
+       *  1. upgrade your packages `npm upgrade --lates`
+       *  2. delete all the alchemy or infura links e.g `'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs'` from everywhere
 

@@ -44,7 +44,7 @@ function Collection() {
   const nftModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs')
+    const sdk = new ThirdwebSDK(provider.getSigner())
     return sdk.getNFTModule(collectionId)
   }, [provider])
 
@@ -61,7 +61,7 @@ function Collection() {
   const marketPlaceModule = useMemo(() => {
     if (!provider) return
 
-    const sdk = new ThirdwebSDK(provider.getSigner(), 'https://eth-rinkeby.alchemyapi.io/v2/psnFUS2-XcOSMR0_ed5tcj8RVjmpH9Rs')
+    const sdk = new ThirdwebSDK(provider.getSigner())
     return sdk.getMarketplaceModule('0x2E0F770000C9ED501bB206026280085A05ac797e')
   }, [provider])
 
@@ -88,8 +88,6 @@ function Collection() {
 
     const collectionData = await sanityClient.fetch(query)
 
-    console.log('collectionData', collectionData, '🔥')
-
     // the query returns 1 object inside of an array
     await setCollection(collectionData[0])
   }
@@ -97,8 +95,6 @@ function Collection() {
   useEffect(() => {
     fetchCollectionData()
   }, [collectionId])
-
-  console.log('query', router.query)
 
   return (
     <div className='overflow-hidden'>
